@@ -13,3 +13,47 @@
 /* При генерации нового предсказания старое предсказание должно добавляться в начало списка «Мои предсказания» — .forecasts  */
 
 /* Для добавления предсказания в список воспользуйся шаблоном forecast-item */
+
+const forecastButton = document.querySelector('.forecast-btn');
+const forecast = document.querySelector('h1');
+const currentProbability = document.querySelector('p');
+
+function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+};
+
+function generatePrediction() {
+    const predictionNum = getRandomNum(1, 4);
+    let predictionText = "";
+
+    if (predictionNum == 1) {
+        predictionText = "Действуй, удача на твоей стороне!";
+    } else if (predictionNum == 2) {
+        predictionText = "Побудь сегодня на едине с собой, прими ванну, сделай медитации и просто расслабься!";
+    } else {
+        predictionText = "Скоро ты встретишь свою любовь!";
+    };
+
+    const probability = getRandomNum(0, 101);
+    const probabilityText = probability + "%";
+
+    forecast.textContent = predictionText;
+    currentProbability.textContent = probabilityText;
+};
+
+const forecastItem = document.querySelector('#forecast-item');
+const container = document.querySelector('.forecasts');
+
+function makeForecastByTemplate() {
+    const userForecast = forecastItem.content.cloneNode(true);
+
+    userForecast.querySelector('h3').textContent = forecast.textContent;
+    userForecast.querySelector('p').textContent = currentProbability.textContent;
+
+    container.prepend(userForecast);
+};
+
+forecastButton.addEventListener ('click', function() {
+    generatePrediction();
+    makeForecastByTemplate();
+});
