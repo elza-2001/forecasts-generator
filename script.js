@@ -23,7 +23,7 @@ function getRandomNum(min, max) {
 };
 
 function generatePrediction() {
-    let predictionNum = getRandomNum(1, 4);
+    const predictionNum = getRandomNum(1, 4);
     let predictionText = "";
 
     if (predictionNum == 1) {
@@ -34,7 +34,7 @@ function generatePrediction() {
         predictionText = "Скоро ты встретишь свою любовь!";
     };
 
-    const probability = Math.floor(Math.random() * 100);
+    const probability = getRandomNum(0, 101);
     const probabilityText = probability + "%";
 
     forecast.textContent = predictionText;
@@ -53,5 +53,7 @@ function makeForecastByTemplate() {
     container.prepend(userForecast);
 };
 
-forecastButton.addEventListener ('click', generatePrediction);
-forecastButton.addEventListener ('click', makeForecastByTemplate);
+forecastButton.addEventListener ('click', function() {
+    generatePrediction();
+    makeForecastByTemplate();
+});
